@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<button>Ok</button>
+
+	<script>
+		"use strict";
+
+// -----------------------------------------------------
+		// const obj = {
+		// 	a:1,
+		// 	b:2,
+		// 	c:3,
+		// }
+
+		// let arr = [];
+		// arr.push(obj.a);
+		// arr.push(obj.b);
+		// console.log(arr[0], arr[1]);
+
+		// for(let key in obj) {
+		// 	arr.push(obj[key]);
+		// }
+		// console.log(arr);
+
+		// let arrValues = Object.values(obj);
+		// console.log(arrValues);
+		// let arrKeys = Object.keys(obj);
+		// console.log(arrKeys);
+
+
+// --- Отличия между ES5 и ES6 -------------------------
+// Как объявить константу в двух стандартах
+		// var PI = 3.14	// В стандарте ES5 константа объявляется: var и имя заглавными буквами
+		// const PI = 3.14 // В стандарте ES6
+
+// Отличия var и let - область видимости
+		// var a = 1;
+		// if(a) {
+		// 	var a = 2;
+		// 	console.log(a);
+		// }
+		// console.log(a);
+// Получим ответ: 2 2 потому что var игнорирует область видимости в конструкциях ветвления
+// Второй var не вызовет ошибки!
+
+		// let a = 1;
+		// if(a) {
+		// 	let a = 2;
+		// 	console.log(a);
+		// }
+		// console.log(a);
+// Получим ответ: 2 1 потому что внутри if своя область видимости, и let её соблюдает
+
+		// let a = 1;
+		// if(a) {
+		// 	a = 2;
+		// 	console.log(a);
+		// }
+		// console.log(a);
+// Получим ответ: 2 2 потому что внутри if новая переменная не определяется
+//  и мы обращаемся к внешней переменной
+
+		// if(1) {
+		// 	let a = 2;
+		// 	console.log(a);
+		// }
+		// console.log(a);
+// Получим ответ: 2 ошибка. Внутренняя а = 2 выводится, а внешней нет совсем!
+
+		// for(let i = 0; i < 3; i++) {
+		// 	i+=2;
+		// }
+		// console.log(i);
+// Получим ответ: ошибка. Потому что console.log(i) пытается вывести 
+//  внешнюю переменную, которой нет
+
+
+// --- Шаблонные литералы ------------------------------
+// То есть - строка в косых кавычках, с переменными внутри
+		// let firstName = "Иван";
+		// let lastName = "Иванов";
+		// let bYear = 1990;
+
+		// function getVozr(parYear) {
+		// 	let date = new Date();
+		// 	return date.getFullYear() - parYear;
+		// 	// return new Date().getFullYear() - parYear;	// то же самое, но короче
+		// }
+
+		// console.log(`Моё имя ${firstName}, фамилия ${lastName}, мой возраст ${getVozr(bYear)}`);
+
+
+// --- Стрелочные функции ------------------------------
+		// let a = 2;
+
+// Обычное объявлние
+		// const sum = function(par) {
+		// 	console.log(par + 10);
+		// }
+		// sum(a);
+
+// Объявление стрелочной функции с одним параметром
+		// const sum = par => {
+		// 	console.log(par + 10);
+		// }
+		// sum(a);
+
+// С двумя и более параметрами
+		// let b = 5;
+		// const sum = (par1, par2) => {
+		// 	console.log(par1 + par2);
+		// }
+		// sum(a, b);
+
+// То же самое
+		// let b = 5;
+		// const sum = (par1, par2) => {
+		// 	return par1 + par2;
+		// }
+		// console.log(sum(a, b));
+
+// Проверка параметра, число это или нет
+		// const sum = (par1, par2 = 4) => {
+		// 	par1 = +par1;
+		// 	if(!isNaN(par1)) {
+		// 		return par1 + par2;
+		// 	} else {
+		// 		return "Это не число";
+		// 	}
+		// }
+		// console.log(sum("str"));
+		// console.log(sum(a));
+
+
+// --- Методы массивов ---------------------------------
+		// let arr = ["PHP", "JS", "Java", "C++", "C#"];
+
+		// arr.forEach( (item, index) => {
+		// 	console.log(`${index + 1}) ${item}`);
+		// });
+
+// Вывести элементы массива, у которых длина больше 2
+		// let filteredArr = arr.filter(item => item.length > 2);
+		// filteredArr.forEach(item => console.log(item));
+
+// Работа метода map. Новый массив получается путём применения функции к каждому
+//  элементу исходного массива
+		// let arrLenght = arr.map(item => item.length);
+		// console.log(arrLenght);
+
+
+// --- Отличия стрелочных функций от обычных ----------------------------------
+// Здесь "номер контейнера" и "цвет" не покажутся - будет undefined
+// Потому что здесь this - это кнопка, то есть источник события, а не объект box
+// Мы только что получили эту кнопку с помощью querySelector
+		// const box = {
+		// 	position: 10,
+		// 	color: "green",
+		// 	demo: function() {
+		// 		document.querySelector("button").addEventListener('click', function() {
+		// 			console.log(this);
+		// 			console.log(`Контейнер №${this.position} имеет цвет ${this.color}`);
+		// 		});
+		// 	},
+		// };
+		// box.demo();
+
+// Как это исправить? Мы сохраняем this в переменную, чтобы использовать её впоследствии
+		// const box = {
+		// 	position: 10,
+		// 	color: "green",
+		// 	demo: function() {
+		// 		let obj = this;
+		// 		document.querySelector("button").addEventListener('click', function() {
+		// 			console.log(this);
+		// 			console.log(`Контейнер №${obj.position} имеет цвет ${obj.color}`);
+		// 		});
+		// 	},
+		// };
+		// box.demo();
+
+
+// Ещё одно решение - использовать стрелочную функцию
+// У стрелочных функций нет своего this, используется this родителя
+// То есть this не меняется после выполнения querySelector 
+// А для доступа к кнопке нужно пользоваться объектом event, который передаётся в функцию
+		// const box = {
+		// 	position: 10,
+		// 	color: "green",
+		// 	demo: function() {
+		// 		document.querySelector("button").addEventListener('click', (e) => {
+		// 			console.log(this);
+		// 			console.log(e.target);
+		// 			e.target.style.color = "red";
+		// 			console.log(`Контейнер №${this.position} имеет цвет ${this.color}`);
+		// 		});
+		// 	},
+		// };
+		// box.demo();
+
+
+// --- Деструктуризация -------------------------------------------------------
+// Разборка больших структур (массивов или объектов) на переменные
+
+		// let arr = ["PHP", "JS", "Java", "C++", "C#"];
+		// let [lang1, lang2, lang3] = arr;
+		// console.log(lang1, lang2, lang3);
+
+		// let obj = {
+		// 	firstName: "Иван",
+		// 	lastName: "Иванов",
+		// 	professions: ["программист", "верстальщик", "сисадмин", "DevOp"],
+		// };
+		// let {firstName: name, lastName, professions: [p1,p2]} = obj;
+		// console.log(name, lastName, p2);
+
+// Как поменять местами переменные
+		// let a = 9, b = 123;
+		// console.log(a, b);
+		// [a,b] = [b,a];
+		// console.log(a, b);
+
+// Псевдомассив arguments
+// Хранит переданные параметры, хотя сама функция их не принимает
+		// function f() {
+		// 	console.log(arguments);
+		// }
+		// f(23,53,90);
+
+// Операторы REST и SPREAD
+// REST - передаваемые параметры, упакованные в массив (здесь - параметр ...p_cont)
+		// function f(p1, p2, ...p_cont) {
+		// 	console.log(arguments);
+		// 	console.log(p_cont);
+		// }
+		// f(23,53,90,33,11);
+
+// SPREAD - распаковка массива в отдельные элементы
+// Как с помощью SPREAD найти максимальный элемент массива?
+// Метод Math.max() принимает только последовательность чисел, а не массив. Поэтому
+//  входящий массив распаковываем с помощью оператора SPREAD
+		// const numbers = [23,45,78,47,13,50];
+		// console.log(...numbers);
+		// console.log(Math.max(...numbers));
+
+// Клонирование свойств массива
+		let arr1 = ['one', 'two'];
+		let arr2 = ['first', ...arr1, 'second'];
+		console.log(arr2);
+
+
+	</script>
+
+</body>
+</html>
