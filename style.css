@@ -1,0 +1,92 @@
+/**/
+
+body{
+	padding: 0;
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+}
+.container{
+	max-width: 960px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+header{
+ 	box-sizing: border-box;
+ 	padding: 20px 15px;
+ 	background-color: #333;
+}
+.headinfo{
+	display: flex;
+}
+.headinfo__item{
+	width: 50%;
+}
+.headinfo__item:last-child{
+	text-align: right;
+}
+.basket{
+	display: inline-block;
+	position: relative;
+	width: 40px;
+	height: 40px;
+	border-radius: 3px;
+	border:  2px solid white;
+	cursor: pointer;
+	background-color: #eee;
+	background-image: url(img/shopping-cart.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.basket__count{
+	top: -9px;
+	right: -9px;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+	color: white;
+	border-radius: 50%;
+	background-color: green;
+}
+
+
+.totalCost{
+	height: 80px;
+	color:  white;
+}
+.totalCost span{
+	font-size: 20px;
+	font-weight: 800;
+}
+
+.products{
+	margin: 60px auto 60px;
+	max-width: 960px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 30px;
+}
+
+.product-item{
+	padding: 20px;
+	box-sizing: border-box;
+	border: 1px solid #aaa;
+	text-align: center;
+}
+.product_title{
+	margin: 0;
+	font-size: 22px;
+}
+.product_button{
+	padding: 5px 20px;
+	font-size: 18px;
+}
+
+
+.myimg{
+	width: 200px;
+}
+
