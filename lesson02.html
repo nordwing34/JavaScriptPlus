@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS2: Lesson 02 (конспект лекции)</title>
+</head>
+
+<body>
+<script>
+	"use strict";
+	/**
+	 * Методы объекта и методы класса
+	 */
+
+	class Person{
+		constructor(fio,age,salary,id){
+			this.fio = fio;
+			this.age = age;
+			this.salary = salary;
+			this.id = id;
+		}
+
+		/**
+		 * Это метод объекта, потому что есть this
+		 * Он должен вызываться с помощью объекта этого класса, созданного через new
+		 */
+		getInfo(){
+			return `Сотрудник: ${this.fio}, его оклад: ${this.salary}`;
+		}
+
+		/**
+		 * Получаем сотрудника с максимальным окладом
+		 * Нужно обойти всех сотрудников и найти того, у которого самый большой оклад
+		 * Это метод класса (в нём нет this). Значит, его можно объявить статическим
+		 * Он вызывется с помощью имени самого класса: Person.getManWithMaxSalary(office)
+		 * 
+		 * @param: массив office, содержащий объекты всех сотрудников
+		 */
+		static getManWithMaxSalary(office){
+			let manMax = office[0];		// берём самого первого сотрудника
+			for (let i = 1; i < office.length; i++) {
+				if(manMax.salary < office[i].salary) manMax = office[i];
+			}
+			return manMax;
+		}
+
+		/**
+		 * Получаем сотрудника с минимальным окладом
+		 */
+		static getManWithMinSalary(office){
+			let manMin = office[0];		// берём самого первого сотрудника
+			for (let i = 1; i < office.length; i++) {
+				if(manMin.salary > office[i].salary) manMin = office[i];
+			}
+			return manMin;
+		}
+	}
+
+/**
+ * Изменяем оклады сотрудников
+ * Кто получает меньше всех - получает премию
+ * Кто получает больше всех - получает взыскание
+ */
+	class Motivation{
+
+		/**
+		 * @param man: объект сотрудник, для которого изменяем оклад
+		 * @rate: процент от зарплаты
+		 */
+		setRate(man, rate){
+			console.log(rate > 0 ? `Сотруднику ${man.fio} положена премия` : `Сотруднику ${man.fio} положено взыскание`);
+			man.salary += man.salary * rate / 100;
+		}
+	}
+
+
+	const man1 = new Person("Иванов",30,60000,121);
+	const man2 = new Person("Петров",42,75000,98);
+	const man3 = new Person("Сидоров",55,137000,15);
+
+	let office = [man1,man2,man3];
+	office.forEach(item => console.log(item.getInfo()));
+
+	const manMax = Person.getManWithMaxSalary(office);
+	console.log(`Сотрудник ${manMax.fio} имеет максимальный оклад (${manMax.salary})`);
+
+	const manMin = Person.getManWithMinSalary(office);
+	console.log(`Сотрудник ${manMin.fio} имеет минимальный оклад (${manMin.salary})`);
+
+	const RATE = 20;	// процент премии или взыскания
+	const motivation = new Motivation();
+	motivation.setRate(manMax, -RATE);
+	motivation.setRate(manMin, RATE);
+
+	console.log('**Оклады после применения коэффициента:');
+	office.forEach(item => console.log(item.getInfo()));
+
+
+
+// ****************************************************************************
+
+
+
+
+</script>
+</body>
+</html>
