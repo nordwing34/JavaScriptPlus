@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Конспект лекции №3</title>
+</head>
+<body>
+
+<div class="classOut"></div>
+
+<script>
+	"use strict";
+
+// ----------------------------------------------------------------------
+	/**
+	 * Создаём объект из JSON-строки
+	 */
+	// let userJson = '{"user": "Иван", "age": 28, "isAdmin": true}';
+	// let user = JSON.parse(userJson);
+
+	// user.dataCreated = '2022-08-08';
+	// user.address = {
+	// 	city: 'Москва',
+	// 	postalCode: 123456,
+	// };
+	// console.log(user);
+
+
+	/**
+	 * Переводим этот объект обратно в строку JSON
+	 * Третий параметр (целое число) - количество пробелов между полями
+	 */
+	 // const strJson1 = JSON.stringify(user);
+	 // console.log(strJson1);
+
+	 // const strJson2 = JSON.stringify(user, ['user','age','address','city'], 2);
+	 // console.log(strJson2);
+
+	 // const strJson3 = JSON.stringify(user, null, 4);
+	 // console.log(strJson3);
+
+
+	 /**
+	  * Изменение значений строки на лету
+	  */
+	  // let userObj = JSON.parse(strJson1, (key, value) => {
+	  // 	if(key == 'dataCreated'){
+	  // 		value = new Date(value);
+	  // 	}
+	  // 	return value;
+	  // });
+	  // console.log(userObj);
+
+
+// ----------------------------------------------------------------------
+// Промисы (простая иллюстрация)
+	// let num = a => {
+	// 	return new Promise((resolve,reject) => {
+	// 		setTimeout(() => {
+	// 			if(a){
+	// 				resolve(a + 10);	// всегда запускается обработчик then
+	// 			} else {
+	// 				reject("error");	// всегда запускается обработчик catch
+	// 			}
+	// 		}, 2000);
+	// 		return 'stop';
+	// 	});
+	// };
+
+	// num(5)
+	// 	.then(x=>{
+	// 		console.log(`Это ${x}`);
+	// 	})
+	// 	.catch(error=>{
+	// 		console.log(`Ошибка`);
+	// 	});
+
+	// Записали это по-другому
+	// // num(5).then(x).catch(error);
+
+
+// ----------------------------------------------------------------------
+// Промисы (функция fetch())
+	// const divOut = document.querySelector(".classOut");
+	// const fileJson = 'ajax/phonebook.json';
+
+	// fetch(fileJson)
+		/**
+		 * Возвращает сырой объект Response{}
+		 * У него в прототипе среди прочего есть метод json()
+		 */
+		 // .then(text => {console.log(text)})
+		
+
+		/**
+		 * Возвращает объект Response{}
+		 * У него в одном из элементов есть массив PromiseResult
+		 * Этот массив хранит объекты, полученные из файла JSON
+		 */
+		// .then(text => {console.log(text.json())})
+
+
+		/**
+		 * В консоль выведены три объекта - содержимое файла JSON
+		 */
+		// .then(text => text.json())
+		// .then(data => data.forEach(item => console.log(item)));
+
+
+		/**
+		 * Выводим эти три объекта на страницу
+		 */
+		// .then(text => text.json())
+		// .then(data => {
+		// 	data.forEach(item => {
+		// 		divOut.insertAdjacentHTML("beforeend", `<p>Заказчик ${item.name}, его телефон ${item.phone}</p>`);
+		// 	});
+		// })
+
+
+// ----------------------------------------------------------------------
+// Парсим курсы валют Центробанка
+
+	const divOut = document.querySelector(".classOut");
+	const fileJson = 'https://www.cbr-xml-daily.ru/daily_json.js';
+
+	/**
+	 * Получаем сырой файл с курсами валют
+	 */
+	// fetch(fileJson)
+	// 	.then(text => text.json())
+	// 	.then(data => {console.log(data)})
+
+
+	/**
+	 * Извлекаем из сырого файла курс конкретной валюты
+	 */
+	fetch(fileJson)
+		.then(text => text.json())
+		.then(data => {console.log(data.Valute.USD.Value)})
+
+
+// https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json
+
+</script>
+
+</body>
+</html>
+
+
