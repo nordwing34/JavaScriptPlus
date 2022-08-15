@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Конспект лекции №4: Регулярные выражения</title>
+</head>
+<body>
+	<script>
+		
+		let str = "Язык JavaScript назван из-за популярного языка Java";
+
+		/**
+		 * Первый синтаксис регулярных выражений
+		 */
+		let rule1 = new RegExp('java');
+		let rule1_1 = new RegExp('java','i');
+		let rule2 = new RegExp('Java');
+
+		// console.log(rule1.test(str));
+		// console.log(rule1_1.test(str));
+		// console.log(rule2.test(str));
+		// console.log('');
+
+		/**
+		 * Второй синтаксис регулярных выражений
+		 */
+		let rule3 = /java/;
+		let rule3_1 = /java/i;
+
+		// console.log(rule3.test(str));
+		// console.log(rule3_1.test(str));
+		// console.log('');
+		
+		/**
+		 * Методы поиска
+		 * search() возвращает индекс первого вхождения подстроки в строке
+		 * Этот метод не работает с множественным поиском
+		 * То есть вот так работать не будет: str.search(/java/ig)
+		 */
+		 // const p1 = str.search(/java/i);
+		 // const p2 = str.search(rule3_1);
+		 // console.log(p1);
+		 // console.log(p2);
+
+
+		 /**
+		  * Для множественного поиска применяется метод match()
+		  * Он возвращает массив
+		  */
+		  // const p3 = str.match(/java/ig);
+		  // console.log(p3);
+
+
+		  /**
+		   * Замена в строках
+		   */
+		   // const p4 = '+7(800)888-77-66';
+		   // const p5 = p4.replace('-', ':');		// заменяется только первое вхождение
+		   // console.log(p5);
+		   // const p6 = p4.replace(/-/g, ':');	// заменяются все вхождения
+		   // console.log(p6);
+
+
+		   /**
+		    * Классы в регулярных выражениях
+		    * [0-9] или [012345679] или \d - все цифры
+		    * [a-z0-9_] или \w - все латинские буквы, все цифры и подчёркивание
+		    * \s - пробелы и табуляции
+		    * [а-яА-ЯёЁ] - все кириллические буквы
+		    * \b - граница фразы
+		    * 
+		    * Если поставить класс в верхнем регистре, то будет отрицание
+		    * Например, \D - это всё, кроме цифр
+		    * [^0-9] - тоже всё, кроме цифр
+		    * \B - НЕ граница фразы, и т.д.
+		    */
+
+		    // Примеры работы классы "граница фразы"
+		    // console.log('Язык JavaScript'.match(/\bjava/i));
+		    // console.log('Язык JavaScript'.match(/java\B/i));
+		    // console.log('Язык JavaScript'.match(/\bjava\b/i));
+		    // console.log('Язык JavaScript'.match(/ipt\b/i));
+
+		    // const p7 = '+7(800)888-77-66';
+		    // const p8 = p7.match(/\d+/g);
+		    // console.log(p7);
+		    // console.log(p8);
+		    // console.log(p8.join(''));
+
+
+		    /**
+		     * Проверка емайла
+		     * Два варианта
+		     */
+		     p9 = 'email@yandex.ru';
+
+		     p9_match = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,3}$/;	// v.1
+		     p10 = p9.match(p9_match);								// v.1
+
+		     // p10 = p9.match(/^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,3}$/);	// v.2
+
+		     console.log(p10);
+
+
+
+	</script>
+</body>
+</html>
