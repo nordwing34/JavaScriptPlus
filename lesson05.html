@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Конспект лекции №5</title>
+	<style>
+		a{
+			display: block;
+			/*margin-bottom: 15px;*/
+		}
+		button{
+			margin: 15px 0;
+		}
+		.nomouse{
+			background-color: #d92;
+		}
+		.product-item{
+			margin: 0 0 30px;
+		}
+		.product-item p{
+			margin: 0;
+			padding: 0;
+		}
+		.product-item img{
+			display: block;
+			margin: 10px 0;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+		<h1>Привет, {{ name }}</h1>
+		<a :href="link" target="_blank">Это Яндекс</a>
+
+		<!-- Два варианта синтаксиса - v-on или @ -->
+		<button v-on:click="counter++">Счётчик: {{ counter }}</button> 
+		<!-- <button @click="counter++">Счётчик: {{ counter }}</button> -->
+		<hr>
+
+		<!-- Метод и счётчик -->
+		<h2>{{ hello() }}</h2>
+		<button v-on:click="increase(forCounter)">Increase: {{ forCounter }}</button>
+		<hr>
+
+		<!-- Триггер, вариант 1 -->
+		<div v-if="show">Включено</div>
+		<div v-else="show">Выключено</div>
+		<button @click="show = !show">Show|Hide</button>
+		<hr>
+
+		<!-- Триггер, вариант 2 -->
+		<button @click="vshow = !vshow">Show|Hide</button>
+		<div v-show="vshow">
+			<h3>Текст для триггера</h3>
+		</div>
+		<hr>
+
+		<!-- Тернарный оператор -->
+		<p>{{ counter > 10 ? "Больше десяти" : "Меньше или равно десяти" }}</p>
+		<hr>
+
+		<!-- Координаты мыши -->
+		<p @mousemove = "getCoordinates()">Lorem ipsum dolor sit amet consectetur adipisicing elit. (Координаты: x = {{x}}, y = {{y}}). 
+			<span class="nomouse" @mousemove.stop>Этот текст не реагирует на мышь</span> Lorem ipsum dolor sit amet
+		</p>
+		<hr>
+
+		<!-- Меняем переменную. Новое значение сразу отражается во всех местах -->
+		<!-- Ленивая активация - срабатает при потере фокуса с элемента -->
+		<input type="text" v-model="name">
+		<input type="text" v-model.lazy="name">
+		<hr>
+
+		<!-- Вставка целого элемента -->
+		<div v-html="completeElement"></div>
+		<hr>
+
+	</div>
+
+	<!-- <script src="https://unpkg.com/vue@next"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		const app = new Vue({
+			el: "#app",
+			data: {
+				name: "Иван",
+				link: "https://yandex.ru",
+				counter: 0,
+				forCounter: 1,
+				show: false,
+				vshow: true,
+				x: 0,
+				y: 0,
+				completeElement: "<a href='https://ya.ru' target='_blank'>Это яндекс</a>",
+			},
+
+			methods: {
+				hello(){
+					return `Hello, ${this.name}!`;
+				},
+				increase(step){
+					this.forCounter += step;
+				},
+				getCoordinates(){
+					this.x = event.clientX;
+					this.y = event.clientY;
+				},
+			},
+
+		});
+	</script>
+</body>
+</html>
+

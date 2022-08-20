@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Конспект лекции №5 (каталог товаров)</title>
+	<style>
+		.product-item{
+			margin: 0 0 30px;
+		}
+		.product-item p{
+			margin: 0;
+			padding: 0;
+		}
+		.product-item img{
+			display: block;
+			margin: 10px 0;
+			width: 200px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<h2>Вывод товаров из массива</h2>
+		<div class="product-item" v-for="item of products">
+			<p>Название товара: {{ item.title }}</p>
+			<p>Стоимость товара: {{ item.price }}</p>
+			<img :src="item.img" :alt="item.title">
+			<button @click="addProduct(item)">Купить</button>
+		</div>
+		<hr>
+		<h2>Корзина</h2>
+		<div class="product-item" v-for="item of cards">
+			<p>Название товара: {{ item.title }}</p>
+			<p>Стоимость товара: {{ item.price }}</p>
+			<p>количество: {{ item.quantity }}</p>
+			<img :src="item.img" :alt="item.title">
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		const app = new Vue({
+			el: "#app",
+			data: {
+				products: [],
+				cards: [],
+			},
+
+			methods: {
+				/**
+				 * Метод для добавления товара в корзину
+				 * @param: item - объект товара, на котором кликнули по кнопке "Купить"
+				 * 
+				 * Сначала проверяем, есть ли такой товар в корзине: ищем по id
+				 * Если есть, то увеличиваем количество.
+				 * Если нет, то создаём его и ставим количество = 1
+				 * 
+				 * Object.assign объединяет два объекта в один объект
+				 * В данном случае объект item (переданный в параметре) и 
+				 *  объект {quantity: 1} - количество товара
+				 * 
+				 * Вместо Object.assign лучше использовать $set потому что
+				 *  оно реактивное
+				 */
+				addProduct(item){
+					let find = this.cards.find(product => item.id == product.id);
+					if(find){
+						find.quantity++;
+					} else {
+						this.$set(item, "quantity", 1);
+						this.cards.push(item);
+						// let itemCart = Object.assign(item, {quantity: 1});
+						// this.cards.push(itemCart);
+					}
+
+					// console.log(find);
+				},
+			},
+
+			/**
+			 * mounted() запускается вторым - после data
+			 */
+			mounted(){
+				this.products = [
+					{
+						id: 1,
+						title: "BMW",
+						price: 1100,
+						img: "img/bmw.jpg",
+					},
+					{
+						id: 2,
+						title: "Skoda",
+						price: 1270,
+						img: "img/skoda.jpg",
+					},
+					{
+						id: 3,
+						title: "VW",
+						price: 980,
+						img: "img/vw.jpg",
+					}
+				]
+			},
+
+
+		});
+	</script>
+</body>
+</html>
+
