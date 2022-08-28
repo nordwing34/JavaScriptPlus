@@ -1,0 +1,26 @@
+{
+  "name": "course04-extjs",
+  "version": "1.0.0",
+  "description": "Курс \"Продвинутый JS\"",
+  "main": "func.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nordwing34/JavaScriptPlus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nordwing34/JavaScriptPlus/issues"
+  },
+  "homepage": "https://github.com/nordwing34/JavaScriptPlus#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "g": "^2.0.1",
+    "moment": "^2.29.4"
+  }
+}
